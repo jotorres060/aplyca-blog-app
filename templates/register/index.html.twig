@@ -1,0 +1,15 @@
+{% extends 'layouts/app.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-center">
+        <div class="card shadow my-3" style="width: 35rem;">
+            <div class="card-body">
+                <h1 class="h3 mb-3 font-weight-normal">Register</h1>
+                <hr>
+                {{ form(registerForm) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

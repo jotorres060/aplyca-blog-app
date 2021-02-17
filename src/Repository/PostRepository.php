@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -17,6 +19,52 @@ class PostRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Post::class);
+    }
+
+    public function getPosts()
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getPost($id)
+    {
+        try {
+            return $this->createQueryBuilder('p')
+                ->andWhere('p.id = :postId')
+                ->setParameter('postId', $id)
+                ->getQuery()
+                ->getSingleResult();
+        } catch (NoResultException $e) {
+            return null;
+        }
+    }
+
+    public function getPostsByUser($user)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.user = :userId')
+            ->setParameter('userId', $user->getId())
+            ->orderBy('p.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getPostByUser($id, $user)
+    {
+        try {
+            return $this->createQueryBuilder('p')
+                ->andWhere('p.id = :postId')
+                ->andWhere('p.user = :userId')
+                ->setParameter('postId', $id)
+                ->setParameter('userId', $user->getId())
+                ->getQuery()
+                ->getSingleResult();
+        } catch (NoResultException $e) {
+            return null;
+        }
     }
 
     // /**

@@ -11,6 +11,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
+    const SUCCESS_REGISTER = 'User registered successfully.';
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -38,6 +40,14 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Post", mappedBy="user")
      */
     private $posts;
+
+    /**
+     * User constructor.
+     */
+    public function __construct()
+    {
+        $this->setRoles(['ROLE_USER']);
+    }
 
     public function getId(): ?int
     {

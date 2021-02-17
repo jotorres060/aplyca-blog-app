@@ -10,6 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Post
 {
+    const SUCCESS_REGISTER = 'Post created successfully.';
+    const NOT_FOUND = 'Post not found.';
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -38,9 +41,17 @@ class Post
     private $created_date;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="products")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="posts")
      */
     private $user;
+
+    /**
+     * Post constructor.
+     */
+    public function __construct()
+    {
+        $this->created_date = new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -93,5 +104,21 @@ class Post
         $this->created_date = $created_date;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user): void
+    {
+        $this->user = $user;
     }
 }

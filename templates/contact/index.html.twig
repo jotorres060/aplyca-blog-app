@@ -1,0 +1,15 @@
+{% extends 'layouts/app.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-center">
+        <div class="card shadow my-3" style="width: 35rem;">
+            <div class="card-body">
+                <h1 class="h3 mb-3 font-weight-normal">Contact</h1>
+                <hr>
+                {{ form(contactForm) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

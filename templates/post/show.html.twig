@@ -1,0 +1,43 @@
+{% extends 'layouts/app.html.twig' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-center">
+        <div class="card shadow" style="width: 35rem;">
+            {% if post.coverImage == null %}
+                <img class="card-img-top coverImageBlog" src="{{ asset('images/cover.jpg') }}" alt="{{ post.title }}">
+            {% else %}
+                <img class="card-img-top coverImageBlog" src="{{ asset('uploads/cover_images/'~post.coverImage) }}" alt="{{ post.title }}">
+            {% endif %}
+
+            <div class="card-body">
+                <h3 class="card-title text-center">{{ post.title }}</h3>
+                <hr>
+                {% if app.user %}
+                    <p class="text-right">
+                        <a class="text-decoration-none font-weight-bold" href="{{ path('post_index') }}">
+                            < Go Back
+                        </a>
+                    </p>
+                {% else %}
+                    <p class="text-right">
+                        <a class="text-decoration-none font-weight-bold" href="{{ path('home') }}">
+                            < Go Back
+                        </a>
+                    </p>
+                {% endif %}
+                <p class="card-text"><small class="text-muted">{{ post.createdDate | date }}</small></p>
+                <p class="card-text">{{ post.body }}</p>
+                <blockquote class="blockquote mb-0 card-body float-right">
+                    <p class="text-right"><em>Author</em></p>
+                    <footer class="blockquote-footer">
+                        <small class="text-muted">
+                            <cite title="Source Title">{{ post.user.email }}</cite>
+                        </small>
+                    </footer>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+{% endblock %}

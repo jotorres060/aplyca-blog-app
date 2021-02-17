@@ -1,0 +1,38 @@
+{% extends 'layouts/app.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+<form method="post">
+    {% if error %}
+        <div class="alert alert-info">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    <div class="d-flex justify-content-center">
+        <div class="card shadow my-3" style="width: 35rem;">
+            <div class="card-body">
+                <h1 class="h3 mb-3 font-weight-normal">Log in</h1>
+                <hr>
+
+                <div class="form-group">
+                    <label for="inputEmail">Email</label>
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputPassword">Password</label>
+                    <input type="password" name="password" id="inputPassword" class="form-control" required>
+                </div>
+
+                <input type="hidden" name="_csrf_token"value="{{ csrf_token('authenticate') }}">
+
+                <button class="btn btn-primary btn-sm mt-3 btn-block" type="submit">
+                    Log in
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+</form>
+{% endblock %}
